@@ -1,6 +1,6 @@
 # ProjectEuler testing
 
-This project is user to help testing while solving [projecteuler.net](projecteuler.net) problems. It only tests the application against the examples provided with the problem.
+This project is user to help testing while solving [projecteuler.net](http://projecteuler.net) problems. It only tests the application against the examples provided with the problem.
 Have fun :)
 
 ## Usage
