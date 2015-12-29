@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
-import argparse, json, sys, traceback, re
+import argparse, json, sys, traceback, re, os
+
+path = os.path.dirname(__file__)
 
 class Case:
 	def __init__(self, f, i, o):
@@ -48,17 +50,21 @@ def main():
 
 	args = parser.parse_args()
 
-	mod = args.file.rsplit('/',1)
+	basename = os.path.basename(args.file)
+	dirname = os.path.dirname(args.file)
+	filename, file_extension = os.path.splitext(basename)
+
 	if not args.number:
-		m = re.search('\d+',mod[1])
+		m = re.search('\d+',filename)
 		if not m:
 			raise Exception("I cannot guess the problem number please specify it with -n.")
 		args.number = m.group(0)
 
-	sys.path.append(mod[0])
-	module = __import__(mod[1][:-3])
 
-	with open('tests.json') as f:
+	sys.path.append(dirname)
+	module = __import__(filename)
+
+	with open(os.path.join(path, 'tests.json')) as f:
 		tests = json.load(f)
 	try:
 		cases = tests[str(args.number)]
